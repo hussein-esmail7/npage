@@ -18,7 +18,7 @@
 
 % \RequirePackage[p,osf]{cochineal}		% Changes text font
 \RequirePackage{ulem}
-\RequirePackage{xcolor}
+\RequirePackage[dvipsnames, svgnames, x11names]{xcolor}
 \RequirePackage{xkeyval} % Used to get parameters from options called by user
 
 \AtBeginDocument{
@@ -41,7 +41,7 @@
 
 % bg color for the initial part, text for rest
 
-\newcommand{\@npage@npagebackgroundcolor}{cyan}
+\newcommand{\@npage@npagebackgroundcolor}{DodgerBlue}
 \newcommand{\@npage@npagetextcolor}{white}
 
 \newcommand{\@npage@todobackgroundcolor}{red}
@@ -82,6 +82,15 @@
 	\@npage@firstfoottrue
 }
 
+\newif{\if@npage@inline}
+\@npage@inlinefalse % Default: New line every time the command is called
+\DeclareOption{inline}{
+	% If this option is given, it displays the next note on the same line if
+	% there is text before it.
+	\@npage@inlinetrue
+}
+
+
 % % Make the background color a changeable option (default: cyan, red, blue)
 % \define@key{npage.sty}{bg-npage}{\renewcommand{\@npage@npagebackgroundcolor}{#1}}
 % \define@key{npage.sty}{bg-todo}{\renewcommand{\@npage@todobackgroundcolor}{#1}}
@@ -113,18 +122,26 @@
 \newcommand{\npage}[1]{%
 	% #1: Ideal format: ``N10-P001'' but in practice, could be any text
 	\renewcommand{\@npage@textnpage}{#1}%
-	\colorbox{\@npage@npagebackgroundcolor}{\texttt{\color{\@npage@npagetextcolor} #1}}%
+	\if@npage@inlinefalse%
+		\newline%
+	\fi%
+	\colorbox{\@npage@npagebackgroundcolor}{\texttt{\color{\@npage@npagetextcolor}#1}}%
 	\if@npage@firstfoot%
 		\ifnum\the\value{@npage@numnpage}=0%
 			% Display the npage footnote on the first one only
-			\footnote{For information about what this is, visit \href{\urlmoreinfo }{\urlmoreinfo}}%
+			\footnote{For information about what this is, visit \href{\urlmoreinfo}{\urlmoreinfo}}%
 		\fi%
 	\fi%
 	\addtocounter{@npage@numnpage}{1}%
 	\addcontentsline{npg}{npage}{\@npage@textnpage}
 }%
+
+
 \newcommand{\todo}[1]{%
 	\renewcommand{\@npage@texttodo}{#1}%
+	\if@npage@inlinefalse%
+		\newline%
+	\fi%
 	\colorbox{\@npage@todobackgroundcolor}{\texttt{\color{\@npage@todotextcolor} TODO}} % Initial block
 	% Original:
 	% \colorbox{\@npage@todotextcolor}{\texttt{\color{\@npage@todobackgroundcolor} #1}} % Text after initial block
@@ -134,18 +151,17 @@
 }%
 % TODO: Conflicts with todonotes package
 % LaTeX uses the command of the package that was imported first
+
+
 \newcommand{\note}[1]{%
 	\renewcommand{\@npage@textnote}{#1}%
+	\if@npage@inlinefalse%
+		\newline%
+	\fi%
 	\colorbox{\@npage@notebackgroundcolor}{\texttt{\color{\@npage@notetextcolor} NOTE}} % Initial block
 	% Original:
 	% \colorbox{\@npage@notetextcolor}{\texttt{\color{\@npage@notebackgroundcolor} #1}} % Text after initial block
 	\textcolor{\@npage@notebackgroundcolor}{\texttt{#1}} % Text after initial block
-
-
-
-
-
-
 	\addtocounter{@npage@numnote}{1}%
 	\addcontentsline{note}{note}{\@npage@textnote}%
 }%
