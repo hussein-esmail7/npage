@@ -1,0 +1,120 @@
+% testing.tex
+% Author: Hussein Esmail
+% Created: 2025 01 11
+% Updated: 2025 01 13
+% Description: This file is meant to be a testing file as I develop npage.sty
+
+
+% =========================== Variables ===========================
+\def\myAuthor			{Hussein Esmail} % Author of this file
+\def\mySubject			{PDF Subject Here}  % Used for Metadata
+\def\myKeywords			{PDF Keywords Here} % Separated by comma
+\def\myDateUpdated		{\today}
+\def\myTitle			{\texttt{npage} Package Testing Page}
+% =========================== Variables ===========================
+
+% =========================== Shortcuts ===========================
+\def\bg{backgroundcolor}
+\def\ra{\rightarrow}
+\def\len{\setlength}
+\newenvironment{itemize*}{\begin{itemize}[wide, nosep, topsep=5px, leftmargin=30pt, labelsep=5pt, parskip=0pt, itemsep=0pt]}{\end{itemize}}
+\newenvironment{enumerate*}{\begin{enumerate}[itemsep=0pt, parskip=0pt]}{\end{enumerate}}
+\newenvironment{enumalph*}{\begin{enumerate}[itemsep=0pt, parskip=0pt, label=\alph*.]}{\end{enumerate}}
+\newenvironment{enumq*}{\begin{enumerate}[itemsep=0pt, parskip=0pt, label=Q{{\arabic*}}.]}{\end{enumerate}}
+\newcommand{\TODO}[1]{\todo[inline, \bg=lightgray, linecolor=red]{#1}}
+% =========================== Shortcuts ===========================
+
+\documentclass{article}
+\title{\myTitle}
+\author{\myAuthor}
+\date{\myDateUpdated}
+
+\usepackage[margin=1in]{geometry} % 1-inch margins
+\usepackage{comment}
+\usepackage[firstfoot]{npage} % conflicts with todonotes package
+\usepackage{hanging}
+% \usepackage[bw]{npage}
+
+
+\usepackage{hyperref}   % Used for adding PDF metadata
+
+
+\hypersetup{
+    colorlinks=true,
+	urlcolor=black,		% URL colors (\href{}{}). Changed to blue later
+	linkcolor=black,	% Table of Contents text color. Used for TOC body only
+    pdfborder={0 0 0},
+    pdftitle={\myTitle},
+    pdfauthor={\myAuthor},
+    pdfsubject={\mySubject},
+    pdfkeywords={\myKeywords}
+}
+
+
+\begin{document}        % Official beginning of the document.
+\maketitle              % Make title page
+\tableofcontents        % Makes TOC
+\listofnpages
+\listoftodos
+\listofnotes
+\hypersetup{linkcolor=blue} % Any links to other sections are now blue
+\pagenumbering{arabic}
+\flushleft
+
+\hangpara{3em}{1} % Indent paragraphs how I do on paper
+
+
+\section{Introduction}
+This document is used as a test to make my npage package
+
+\section{New \texttt{\textbackslash{}npage} command}
+Trying out different colours. \\
+\bigskip
+
+\npage{N10-P001} \\
+\bigskip
+\npage{N10-P002} \\
+\bigskip
+% \npagenew{N10-P001}{main} main \\
+% % \npagenew{N10-P001}{sub} sub \\
+% \npagenew{N10-P001}{blue} Blue \\
+% \npagenew{N10-P001}{cyan} Cyan \\
+% \npagenew{N10-P001}{magenta} Magenta \\
+% \npagenew{N10-P001}{lightgray} Light Gray \\
+% \npagenew{N10-P001}{red} Red \\
+% \npagenew{N10-P001}{orange} Orange \\
+% \npagenew{N10-P001}{pink} Pink \\
+Test text. This text would be on the page provided
+\bigskip
+
+\section{Commands from the template document}
+\note{This is a note with some text.}
+\bigskip
+
+\todo{This is a note about something that still needs to be done.}
+\bigskip
+
+
+\todo{This is another todo note}
+\bigskip
+
+
+\todo{I need to add a reminder that this conflicts with the todonotes package}
+\bigskip
+
+\note{This is a note with some text. This note specifically is longer than the text width to test if the line wraps properly.}
+\bigskip
+
+\begin{comment}
+	% Commands from npage package
+	\begin{itemize*}
+		\item npage: \npage{N10-P001}
+		\item npage: \todo{Todo item here}
+		\item npage: \note{Note item here}
+	\end{itemize*}
+\end{comment}
+
+
+
+
+\end{document}

@@ -1,0 +1,172 @@
+%% start of file `npage.sty'.
+
+%% Copyright 2024 Hussein Esmail (https://husseinesmail.xyz).
+% Visuals based on Madhavan Raja's assignmeownt.cls (github.com/madhavan-raja).
+% Code from todonotes package referenced for proper package syntax
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+%------------------------------
+% Identification
+%------------------------------
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{npage}[2014/08/16 NPage LaTeX package]
+
+% \RequirePackage[p,osf]{cochineal}		% Changes text font
+\RequirePackage{ulem}
+\RequirePackage{xcolor}
+\RequirePackage{xkeyval} % Used to get parameters from options called by user
+
+\AtBeginDocument{
+    \@ifpackageloaded{todonotes}
+        {}
+        {\PackageWarning{npage}{todonotes package conflicts with the `todo` commands in this package. LaTeX will use the commands of the package that was loaded first.}}
+}
+
+%------------------------------
+% Variables, Counters, and Commands
+%------------------------------
+
+% Website URL forp people to go to
+\newcommand{\urlmoreinfo}{https://husseinesmail.xyz/notebooks}
+
+\newcommand{\@npage@textnpage}{null}
+\newcommand{\@npage@texttodo}{null}
+\newcommand{\@npage@textnote}{null}
+% \newcommand{\@npage@text}{}
+
+% bg color for the initial part, text for rest
+
+\newcommand{\@npage@npagebackgroundcolor}{cyan}
+\newcommand{\@npage@npagetextcolor}{white}
+
+\newcommand{\@npage@todobackgroundcolor}{red}
+\newcommand{\@npage@todotextcolor}{white}
+
+\newcommand{\@npage@notebackgroundcolor}{blue}
+\newcommand{\@npage@notetextcolor}{white}
+
+% \newcommand{\@npage@textsize}{\normalsize}
+
+\newcommand{\@npage@npagelistname}{Notebook Pages list}
+\newcommand{\@npage@todolistname}{Todo list}
+\newcommand{\@npage@notelistname}{Note list}
+
+% Create counters, for storing the number of inserted todos, notes, and npages
+\newcounter{@npage@numnpage}
+\newcounter{@npage@numtodo}
+\newcounter{@npage@numnote}
+
+%------------------------------
+% Options
+%------------------------------
+
+\DeclareOption{bw}{
+	% Sets all created items to grayscale
+	\renewcommand{\@npage@npagebackgroundcolor}{lightgray}
+	\renewcommand{\@npage@npagetextcolor}{black}
+	\renewcommand{\@npage@notebackgroundcolor}{lightgray} % bg color for the initial part, text for rest
+	\renewcommand{\@npage@notetextcolor}{black}
+	\renewcommand{\@npage@todobackgroundcolor}{lightgray}
+	\renewcommand{\@npage@todotextcolor}{black}
+}
+
+\newif{\if@npage@firstfoot}
+\DeclareOption{firstfoot}{
+	% If this option is given, it displays the ``what is this?'' footnote the
+	% first time \npage is called
+	\@npage@firstfoottrue
+}
+
+% % Make the background color a changeable option (default: cyan, red, blue)
+% \define@key{npage.sty}{bg-npage}{\renewcommand{\@npage@npagebackgroundcolor}{#1}}
+% \define@key{npage.sty}{bg-todo}{\renewcommand{\@npage@todobackgroundcolor}{#1}}
+% \define@key{npage.sty}{bg-note}{\renewcommand{\@npage@notebackgroundcolor}{#1}}
+% % Make the text color a changeable option (default: white)
+% \define@key{npage.sty}{fg-npage}{\renewcommand{\@npage@npagetextcolor}{#1}}
+% \define@key{npage.sty}{fg-todo}{\renewcommand{\@npage@todotextcolor}{#1}}
+% \define@key{npage.sty}{fg-note}{\renewcommand{\@npage@notetextcolor}{#1}}
+% % Should this item be in their respective npage/todo/note list?
+\newif\if@npage@appendtolists
+\define@key{npage}{list}[]{\@npage@appendtoliststrue}
+\define@key{npage}{nolist}[]{\@npage@appendtolistsfalse}
+
+\DeclareOption*{\PackageWarning{npage}{Unknown ‘\CurrentOption’}}
+\ProcessOptions\relax
+
+% Define the different list commands and define the appearance of the lists
+\newcommand{\npagelist}[1][\@npage@npagelistname]{\@ifundefined{chapter}{\section*{#1}}{\chapter*{#1}} \@starttoc{npg}}
+\newcommand{\l@npage}{\@dottedtocline{1}{0em}{2.3em}}
+\newcommand{\todolist}[1][\@npage@todolistname]{\@ifundefined{chapter}{\section*{#1}}{\chapter*{#1}} \@starttoc{tdo}}
+\newcommand{\l@todo}{\@dottedtocline{1}{0em}{2.3em}}
+\newcommand{\notelist}[1][\@npage@notelistname]{\@ifundefined{chapter}{\section*{#1}}{\chapter*{#1}} \@starttoc{note}}
+\newcommand{\l@note}{\@dottedtocline{1}{0em}{2.3em}}
+
+%------------------------------
+% Main commands
+%------------------------------
+
+\newcommand{\npage}[1]{%
+	% #1: Ideal format: ``N10-P001'' but in practice, could be any text
+	\renewcommand{\@npage@textnpage}{#1}%
+	\colorbox{\@npage@npagebackgroundcolor}{\texttt{\color{\@npage@npagetextcolor} #1}}%
+	\if@npage@firstfoot%
+		\ifnum\the\value{@npage@numnpage}=0%
+			% Display the npage footnote on the first one only
+			\footnote{For information about what this is, visit \href{\urlmoreinfo }{\urlmoreinfo}}%
+		\fi%
+	\fi%
+	\addtocounter{@npage@numnpage}{1}%
+	\addcontentsline{npg}{npage}{\@npage@textnpage}
+}%
+\newcommand{\todo}[1]{%
+	\renewcommand{\@npage@texttodo}{#1}%
+	\colorbox{\@npage@todobackgroundcolor}{\texttt{\color{\@npage@todotextcolor} TODO}} % Initial block
+	% Original:
+	% \colorbox{\@npage@todotextcolor}{\texttt{\color{\@npage@todobackgroundcolor} #1}} % Text after initial block
+	\textcolor{\@npage@todobackgroundcolor}{\texttt{#1}} % Text after initial block
+	\addtocounter{@npage@numnpage}{1}%
+	\addcontentsline{tdo}{todo}{\@npage@texttodo}%
+}%
+% TODO: Conflicts with todonotes package
+% LaTeX uses the command of the package that was imported first
+\newcommand{\note}[1]{%
+	\renewcommand{\@npage@textnote}{#1}%
+	\colorbox{\@npage@notebackgroundcolor}{\texttt{\color{\@npage@notetextcolor} NOTE}} % Initial block
+	% Original:
+	% \colorbox{\@npage@notetextcolor}{\texttt{\color{\@npage@notebackgroundcolor} #1}} % Text after initial block
+	\textcolor{\@npage@notebackgroundcolor}{\texttt{#1}} % Text after initial block
+
+
+
+
+
+
+	\addtocounter{@npage@numnote}{1}%
+	\addcontentsline{note}{note}{\@npage@textnote}%
+}%
+
+%------------------------------
+% Lists
+%------------------------------
+
+% Inserts a reference to the list of todos in the table of contents. If chapter
+% is defined, chapter is used as level otherwise will section be used.
+\newcommand{\listofnpages}[1][\@npage@npagelistname]{
+	\addcontentsline{toc}{\@ifundefined{chapter}{section}{chapter}}{\@npage@npagelistname}%
+	\@ifundefined{chapter}{\section*{#1}}{\chapter*{#1}} \@starttoc{npg}
+}
+\newcommand{\listoftodos}[1][\@npage@todolistname]{
+	\addcontentsline{toc}{\@ifundefined{chapter}{section}{chapter}}{\@npage@todolistname}%
+	\@ifundefined{chapter}{\section*{#1}}{\chapter*{#1}} \@starttoc{tdo}
+}
+\newcommand{\listofnotes}[1][\@npage@notelistname]{
+	\addcontentsline{toc}{\@ifundefined{chapter}{section}{chapter}}{\@npage@notelistname}%
+	\@ifundefined{chapter}{\section*{#1}}{\chapter*{#1}} \@starttoc{note}
+}
+
+%% end of file `npage.sty'.
