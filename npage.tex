@@ -1,0 +1,273 @@
+% npage.tex
+% Author: Hussein Esmail
+% Created: 2025 01 13
+% Updated: 2025 01 13
+% Description: `npage` package documentation
+
+% =========================== Variables ===========================
+\def\myAuthor			{Hussein Esmail} % Author of this file
+\def\mySubject			{PDF Subject Here}  % Used for Metadata
+\def\myKeywords			{PDF Keywords Here} % Separated by comma
+\def\myDateUpdated		{\today}
+\def\myVersion			{v1.0.0} % Version that this documentation relates to
+\def\myVersionDate		{2025 01 15} % \myVersion release date
+\def\myTitle			{The \texttt{npage} package\footnote{This package corresponds to \texttt{npage \myVersion}, dated \myVersionDate.}}
+% =========================== Variables ===========================
+
+% =========================== Shortcuts ===========================
+\def\bg{backgroundcolor}
+\def\ra{\rightarrow}
+\def\len{\setlength}
+% =========================== Shortcuts ===========================
+
+\documentclass{article}
+\title{\myTitle}
+\author{\myAuthor}
+\date{\myDateUpdated}
+
+\usepackage{comment}	% Used for the 'comment' environment (multi-line)
+\usepackage{tikz}
+% \usepackage{hanging}
+\usepackage[nohang]{npage}
+\usepackage{framed}
+
+\usepackage{hyperref}   % Used for adding PDF metadata
+\usetikzlibrary{decorations.pathmorphing}
+
+
+\hypersetup{
+    colorlinks=true,
+	urlcolor=black,		% URL colors (\href{}{}). Changed to blue later
+	linkcolor=black,	% Table of Contents text color. Used for TOC body only
+    pdfborder={0 0 0},
+    pdftitle={\myTitle},
+    pdfauthor={\myAuthor},
+    pdfsubject={\mySubject},
+    pdfkeywords={\myKeywords}
+}
+
+\begin{document}        % Official beginning of the document.
+% \pagecolor{black}
+% \color{white}
+\interfootnotelinepenalty=10000
+\maketitle              % Make title page
+\begin{abstract}
+	The \texttt{npage} package \\
+	\todo{Finish writing abstract}
+\end{abstract}
+\tableofcontents        % Makes TOC
+\listoftodos			% Show all todo notes as a list to see what's remaining
+\hypersetup{linkcolor=blue} % Any links to other sections are now blue
+\newpage                % Page break
+\pagenumbering{arabic}
+\flushleft
+% \hangpara{3em}{1} % Indent paragraphs how I do on paper
+\setlength{\parindent}{20pt}
+
+\section{Introduction}
+\todo{Purpose of document}
+
+\subsection{Story/My Notebook System}
+\npage{N12-P167} \\
+I enjoy writing things down. Since 2018\footnote{Start year of N01}
+I've been using 200-page grid paper notebooks from Hilroy. Originally, I had
+just numbered pages and an index. As I used more and more of them, I started
+making little printouts
+
+% \todo{URL to cover of N01 showing printout label}
+
+
+\begin{figure}[h!]
+	\caption{Notebook Cover Label}
+	\centering
+	\begin{tikzpicture}
+	\tikzstyle{every node}=[font=\Large]
+		\node [font=\Large] at (-1.6,1) {Notebook 1};
+		\node [font=\LARGE] at (0,0) {2018 03 22 - 2018 04 16};
+		\draw (-3,1.5) to (-3,-0.5);
+		\draw (-3,1.5) to (3,1.5);
+		\draw (3,1.5) to (3,-0.5);
+		\draw (-3,-0.5) to (3,-0.5);
+	\end{tikzpicture}
+	\label{fig:my_label}
+\end{figure}
+
+to put on those covers with the start and end dates when I finish a
+notebook. When I started a notebook, I would also add vertical strips of
+electrical tape spanning the entire cover, overlapping right to left. I did
+this to add more gripiness than the smooth cover. I would do this process for every time I started a new notebook.
+
+In 2022 while I was at York University, I had scanned every page of every
+notebook I had up to date. Around this time (January 2022), I had just started
+Notebook \#8. I know this because the scan
+% \npage{N12-P168}
+date of most of my pages were around this date in the metadata of the JPG
+files. That would mean I had scanned around 1400 pages (200 pages $\times$ 7
+completed notebooks). Why? I would only carry one notebook at a time when I
+went out, so if I started a new notebook mid-semester, I wouldn't have any
+older notes with me. But I would still have my laptop.
+
+\noindent \npage{N12-P168} \\
+In high school, when we ere given calculus, physics, and chemistry textbooks, I
+took pictures of every page at the beginning of the semester with my iPod  Touch and
+kept them on my laptop, so that when I had homework from those pages, I didn't
+have to worry about carrying extra weight in my backpack, nor worry about
+taking pictures of the pages I needed to do the homework when I found out which
+pages those were. Later on, as Chromebooks were becoming more common among
+students, I just used my laptop with the textbook pages on it instead of
+bringing the books to class as well. Those textbooks stayed on the bottom shelf
+of my locker all semester. This was before I found out about websites where you
+could find textbook PDFs for free.\footnote{Sidenote: When my school introduced Chromebooks, the first year of students that got them was the grade after mine, so having computers out in my grade wasn't too common. I checked with every teacher before having it out.}
+
+\noindent \npage{N12-P169} \\
+I tell this story about my textbooks in high school because this is what I
+remembered when coming up with solutions to keeping my notes with me when I
+finished a notebook. So, I scanned every page and organized them into folders
+by which notebook they're from, naming the image by its page number.
+
+Each page has a title, and the date. If there are notes that last for multiple pages, it has the page number of just those notes, as well as the number of total pages there are for that topic.
+
+\begin{figure}[h!]
+	\caption{Page Header Default Format}
+	\centering
+	\tikzset{snake it/.style={decorate, decoration=snake}}
+	\begin{tikzpicture}
+		\node [font=\large] at (4,    8.5) {ICS4U Notes};
+		\node [font=\large] at (4.3,  8)   {2025 03 15 (Sat)};
+		% \node [font=\large] at (8,    8.5) {$\rightarrow$ N12-P190};
+		\node [font=\large] at (12.5, 8.5) {1/2};
+		\path [draw=black,snake it] (2,7) -- (14,7);
+		\draw [] (2,9) to (14,9);
+		\draw [] (2,9) to (2,7);
+		\draw [] (14,9) to (14,7);
+	\end{tikzpicture}
+\end{figure}
+
+and how many pages have that title (if there
+are multiple pages of notes for something, as an example):
+
+In 2023, I decided to change up the numbering system a bit. I also added the notebook number to each page number as well so I can know which notebook I am refering to (also for aesthetic purposes), in this format:
+
+\begin{figure}[ch]
+	\caption{Page Number Format}
+	\label{fig:my_label}
+	\centering
+	\tikzset{snake it/.style={decorate, decoration=snake}}
+	\begin{tikzpicture}[thick]
+		\path [draw=black,snake it] (1,22) -- (-1,22);
+		\path [draw=black,snake it] (-1,20) -- (-1,22);
+		\draw [] (1,20) to[short] (1,22); % Vertical right page line
+		\draw [] (1,20) to[short] (-1,20); % Horizontal bottom page line
+		\node [font=\normalsize] at (0.3,21.0) {N12}; % N12
+		\node [font=\normalsize] at (0.3,20.5) {169}; % 169
+	\end{tikzpicture}
+	% \todo{Build figure in TikZ}
+\end{figure}
+
+
+Now when I refer to a specific page in one of my notebooks, I use the format:
+``N12-P169''. You may have noticed them popping up in this document as well.
+That's because I originally handwrote a draft of this before typing it up.
+
+When I write To Do lists most of the time I write incomplete tasks from my last
+To Do list on the new one as well. On the old To Do list, I write the newer
+page at the top so I know that there's now a more up to date one, like so:
+
+\begin{figure}[h!]
+	\caption{To Do List Linked List Example}
+	\centering
+	\tikzset{snake it/.style={decorate, decoration=snake}}
+	\begin{tikzpicture}
+		\node [font=\large] at (3.3,    8.5) {To Do};
+		\node [font=\large] at (4.3,  8)   {2024 12 11 (Wed)};
+		\node [font=\large] at (8,    8.5) {$\rightarrow$ N12-P192};
+		% \node [font=\large] at (12.5, 8.5) {1/2};
+		\path [draw=black,snake it] (2,7) -- (14,7);
+		\draw [] (2,9) to (14,9);
+		\draw [] (2,9) to (2,7);
+		\draw [] (14,9) to (14,7);
+	\end{tikzpicture}
+\end{figure}
+
+
+\section{Usage}
+
+\noindent \texttt{\textbackslash{}npage\{\textit{N10-P001}\}} \\
+This command takes 1 input parameter. The format could be for anything, but I
+use \texttt{N**-P***}. This command places the text inside a solid rectangle.
+\begin{figure}[h!]
+	\centering
+	\caption{\texttt{\textbackslash{}npage\{\}} command example}
+	\npage{N10-P001}
+\end{figure}
+
+\noindent \texttt{\textbackslash{}todo\{\textit{Action that needs to get done}\}} \\
+This command takes 1 input parameter. This command always starts the same way, with the text ``TODO'' in white, in a red box. Anything given in the parameter is added in the same font in red afterwards. Note that because of this command, this package conflicts with the \texttt{todonotes} package.
+\begin{figure}[h!]
+	\centering
+	\caption{\texttt{\textbackslash{}todo\{\}} command example}
+	\todo{Action that needs to get done}
+\end{figure}
+
+\noindent \texttt{\textbackslash{}note\{\textit{Written note text}\}} \\
+This command takes 1 input parameter. This command always starts the same way, with the text ``TODO'' in white, in a red box. Anything given in the parameter is added in the same font in red afterwards.
+\begin{figure}[h!]
+	\centering
+	\caption{\texttt{\textbackslash{}todo\{\}} command example}
+	\note{Written note text}
+\end{figure}
+
+\noindent \texttt{\textbackslash{}listofnpages} \\
+This command generates a list of all instances of when \texttt{\textbackslash{}npage\{\}} is called, similar to \texttt{\textbackslash{}tableofcontents}.
+\vspace{1em}
+
+\noindent \texttt{\textbackslash{}listofnpages} \\
+This command generates a list of all instances of when \texttt{\textbackslash{}npage\{\}} is called, similar to \texttt{\textbackslash{}tableofcontents}.
+\vspace{1em}
+
+\noindent \texttt{\textbackslash{}listofnpages} \\
+This command generates a list of all instances of when \texttt{\textbackslash{}npage\{\}} is called, similar to \texttt{\textbackslash{}tableofcontents}.
+\vspace{1em}
+
+
+\subsection{Package Options}
+
+To set all colours used in this package to black and white (in case you are printing your document with black ink only), you can give the \texttt{bw} option in the package definition like so: \\
+\texttt{\textbackslash{}usepackage[bw]\{npage\}}
+
+
+
+\todo{Write about firstfoot option}
+\note{specific colour commands still needs to be implemented globally. When I do, mention that it needs to be in xcolor format}
+
+\subsection{Options for the npage, todo, and note commands}
+\todo{Write about bw option}
+\note{bw command still needs to be implemented on a per-use basis, not globally}
+\note{specific colour commands still needs to be implemented on a per-use basis, not globally. When I do, mention that it needs to be in xcolor format}
+
+\section{Known issues}
+\subsection{Conflicts with the todonotes package}
+\begin{itemize}
+	\item At the moment, the \texttt{\textbackslash{}todo{}} command conflicts
+		with the \texttt{todonotes} package.
+\end{itemize}
+
+\section{Things to improve}
+Here is a list of things I plan to improve upon. If you end up having a
+solution, please feel free to submit a pull request on the GitHub repository
+this is stored at! The repository is at
+\href{https://github.com/hussein-esmail7/npage}{https://github.com/hussein-esmail7/npage}.
+\begin{itemize}
+	\item In the future, I plan to add an optional parameter to each of
+		\texttt{\textbackslash{}npage}, \texttt{\textbackslash{}todo}, and
+		\texttt{\textbackslash{}note} so you can explicitly define a color for
+		each instance of the command in case you want one to look different
+		from the default.
+\end{itemize}
+
+\section{Contact info for feedback, discovered issues, and suggestions}
+\todo{Write section: Contact info for feedback, discovered issues, and suggestions}
+
+
+
+\end{document}
