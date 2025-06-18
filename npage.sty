@@ -117,13 +117,13 @@
 % Main commands
 %------------------------------
 
-\newcommand{\npage}[1]{%
+\newcommand{\npage}[2][]{%
 	% #1: Ideal format: ``N10-P001'' but in practice, could be any text
 	\renewcommand{\@npage@textnpage}{#1}%
 	\if@npage@inlinefalse%
 		\newline%
 	\fi%
-	\colorbox{\@npage@npagebackgroundcolor}{\texttt{\color{\@npage@npagetextcolor}#1}}%
+	\colorbox{\@npage@npagebackgroundcolor}{\texttt{\color{\@npage@npagetextcolor}#2}}%
 	\if@npage@firstfoot%
 		\ifnum\the\value{@npage@numnpage}=0%
 			% Display the npage footnote on the first one only

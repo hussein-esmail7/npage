@@ -6,6 +6,7 @@
 
 % =========================== Variables ===========================
 \def\myAuthor			{Hussein Esmail} % Author of this file
+\def\myContactEmail		{\href{mailto:HusseinEsmailContact@gmail.com}{HusseinEsmailContact@gmail.com}} % Author of this file
 \def\mySubject			{PDF Subject Here}  % Used for Metadata
 \def\myKeywords			{PDF Keywords Here} % Separated by comma
 \def\myDateUpdated		{\today}
@@ -15,25 +16,23 @@
 % =========================== Variables ===========================
 
 % =========================== Shortcuts ===========================
-\def\bg{backgroundcolor}
-\def\ra{\rightarrow}
-\def\len{\setlength}
 % =========================== Shortcuts ===========================
 
 \documentclass{article}
-\title{\myTitle}
-\author{\myAuthor}
-\date{\myDateUpdated}
 
-\usepackage{comment}	% Used for the 'comment' environment (multi-line)
-\usepackage{tikz}
-% \usepackage{hanging}
 \usepackage[nohang]{npage}
+\usepackage{comment}	% Used for the 'comment' environment (multi-line)
+\usepackage{datetime}
 \usepackage{framed}
+\usepackage{tikz}
+\usepackage{graphicx}   % Used for adding images
+% \usepackage{hanging}
 
 \usepackage{hyperref}   % Used for adding PDF metadata
-\usetikzlibrary{decorations.pathmorphing}
 
+\graphicspath{{./} {src/}}     % Import images in the same folder as this .tex file
+
+\usetikzlibrary{decorations.pathmorphing}
 
 \hypersetup{
     colorlinks=true,
@@ -46,14 +45,21 @@
     pdfkeywords={\myKeywords}
 }
 
+\title{\myTitle}
+\author{\myAuthor \\ \texttt{\myContactEmail{}}}
+\newdateformat{specialdate}{\THEYEAR\ \twodigit{\THEMONTH}\ \twodigit{\THEDAY}\ (\shortdayofweekname{\THEDAY}{\THEMONTH}{\THEYEAR})}
+\date{\specialdate\myDateUpdated}
+% \date{\specialdate\today}
+% \date{\myDateUpdated}
+
 \begin{document}        % Official beginning of the document.
 % \pagecolor{black}
 % \color{white}
+\pagenumbering{roman}
 \interfootnotelinepenalty=10000
 \maketitle              % Make title page
 \begin{abstract}
-	The \texttt{npage} package \\
-	\todo{Finish writing abstract}
+	The \texttt{npage} package allows you to insert notebook references, to-do items, and notes in your document, intended to be inline with your main document text. Each of them have an included aggregated list of references, using \texttt{\textbackslash{}listognpages}, \texttt{\textbackslash{}listoftodos}, and \texttt{\textbackslash{}listofnotes}.
 \end{abstract}
 \tableofcontents        % Makes TOC
 \listoftodos			% Show all todo notes as a list to see what's remaining
@@ -72,10 +78,13 @@
 I enjoy writing things down. Since 2018\footnote{Start year of N01}
 I've been using 200-page grid paper notebooks from Hilroy. Originally, I had
 just numbered pages and an index. As I used more and more of them, I started
-making little printouts
+making little printouts\footnote{\href{https://husseinesmail.xyz/}{Here is a picture of the cover of Notebook \#1.}};
 
-% \todo{URL to cover of N01 showing printout label}
-
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{N01-P000 (cover)}
+\end{center}
+\todo{Hyperlink N01 cover to https://husseinesmail.xyz/notebooks}\footnote{\href{https://husseinesmail.xyz/notebooks}{https://husseinesmail.xyz/notebooks}}
+\todo{Write https://husseinesmail.xyz/notebooks}\footnote{\href{https://husseinesmail.xyz/notebooks}{https://husseinesmail.xyz/notebooks}}
 
 \begin{figure}[h!]
 	\caption{Notebook Cover Label}
@@ -95,7 +104,8 @@ making little printouts
 to put on those covers with the start and end dates when I finish a
 notebook. When I started a notebook, I would also add vertical strips of
 electrical tape spanning the entire cover, overlapping right to left. I did
-this to add more gripiness than the smooth cover. I would do this process for every time I started a new notebook.
+this to add more gripiness than the smooth cover. I would do this process for
+every time I started a new notebook.
 
 In 2022 while I was at York University, I had scanned every page of every
 notebook I had up to date. Around this time (January 2022), I had just started
@@ -109,15 +119,15 @@ older notes with me. But I would still have my laptop.
 
 \noindent \npage{N12-P168} \\
 In high school, when we ere given calculus, physics, and chemistry textbooks, I
-took pictures of every page at the beginning of the semester with my iPod  Touch and
-kept them on my laptop, so that when I had homework from those pages, I didn't
-have to worry about carrying extra weight in my backpack, nor worry about
-taking pictures of the pages I needed to do the homework when I found out which
-pages those were. Later on, as Chromebooks were becoming more common among
-students, I just used my laptop with the textbook pages on it instead of
+took pictures of every page at the beginning of the semester with my iPod
+Touch and kept them on my laptop, so that when I had homework from those pages,
+I didn't have to worry about carrying extra weight in my backpack, nor worry
+about taking pictures of the pages I needed to do the homework when I found out
+which pages those were. Later on, as Chromebooks were becoming more common
+among students, I just used my laptop with the textbook pages on it instead of
 bringing the books to class as well. Those textbooks stayed on the bottom shelf
 of my locker all semester. This was before I found out about websites where you
-could find textbook PDFs for free.\footnote{Sidenote: When my school introduced Chromebooks, the first year of students that got them was the grade after mine, so having computers out in my grade wasn't too common. I checked with every teacher before having it out.}
+could find textbook PDFs for free.\footnote{Sidenote: When my school introduced Chromebooks, the first year of students that got them was the grade after mine, so having computers out in my grade wasn't too common. I checked with every teacher before using it in class.}
 
 \noindent \npage{N12-P169} \\
 I tell this story about my textbooks in high school because this is what I
@@ -125,7 +135,9 @@ remembered when coming up with solutions to keeping my notes with me when I
 finished a notebook. So, I scanned every page and organized them into folders
 by which notebook they're from, naming the image by its page number.
 
-Each page has a title, and the date. If there are notes that last for multiple pages, it has the page number of just those notes, as well as the number of total pages there are for that topic.
+Each page has a title, and the date. If there are notes that last for multiple
+pages, it has the page number of just those notes, as well as the number of
+total pages there are for that topic.
 
 \begin{figure}[h!]
 	\caption{Page Header Default Format}
@@ -189,6 +201,7 @@ page at the top so I know that there's now a more up to date one, like so:
 	\end{tikzpicture}
 \end{figure}
 
+\todo{Write out remainder of notebook system}
 
 \section{Usage}
 
@@ -232,24 +245,44 @@ This command generates a list of all instances of when \texttt{\textbackslash{}n
 
 \subsection{Package Options}
 
-To set all colours used in this package to black and white (in case you are printing your document with black ink only), you can give the \texttt{bw} option in the package definition like so: \\
+\subsubsection{bw Package Option}
 \texttt{\textbackslash{}usepackage[bw]\{npage\}}
+To set all colours used in this package to black and white\footnote{In case you are printing your document in black and white}, you can give the \texttt{bw} option in the package definition.
 
+\subsubsection{firstfoot Package Option}
+\texttt{\textbackslash{}usepackage[firstfoot]\{npage\}}
+This command automatically adds a footnote to the first
+\texttt{\textbackslash{}npage} command. By default, the text is ``For
+information about what this is, visit https://husseinesmail.xyz/notebooks''.
 
+\todo{Implement option before mentioning: Change URL in firstfoot by adding \texttt{url=\textit{URL}} in package options.}
+% The URL can be changed by giving \texttt{url=\textit{URL}} in the package options as well.
+\todo{specific colour commands still needs to be implemented globally. When I do, mention that it needs to be in xcolor format}
 
-\todo{Write about firstfoot option}
-\note{specific colour commands still needs to be implemented globally. When I do, mention that it needs to be in xcolor format}
-
-\subsection{Options for the npage, todo, and note commands}
+\subsection{Options for the \texttt{npage} command}
 \todo{Write about bw option}
 \note{bw command still needs to be implemented on a per-use basis, not globally}
 \note{specific colour commands still needs to be implemented on a per-use basis, not globally. When I do, mention that it needs to be in xcolor format}
+
+\subsection{Options for the \texttt{todo} command}
+\todo{Write about bw option}
+\note{bw command still needs to be implemented on a per-use basis, not globally}
+\note{specific colour commands still needs to be implemented on a per-use basis, not globally. When I do, mention that it needs to be in xcolor format}
+
+\subsection{Options for the \texttt{note} command}
+\todo{Write about bw option}
+\note{bw command still needs to be implemented on a per-use basis, not globally}
+\note{specific colour commands still needs to be implemented on a per-use basis, not globally. When I do, mention that it needs to be in xcolor format}
+
 
 \section{Known issues}
 \subsection{Conflicts with the todonotes package}
 \begin{itemize}
 	\item At the moment, the \texttt{\textbackslash{}todo{}} command conflicts
-		with the \texttt{todonotes} package.
+		with the \texttt{todonotes} package. I find that it uses the command
+		that was imported most recently. If \texttt{npage} is imported before
+		\texttt{todonotes}, the \texttt{todonotes}
+		\texttt{\textbackslash{}todo} command will be used.
 \end{itemize}
 
 \section{Things to improve}
@@ -263,10 +296,15 @@ this is stored at! The repository is at
 		\texttt{\textbackslash{}note} so you can explicitly define a color for
 		each instance of the command in case you want one to look different
 		from the default.
+	\item I want to add an \texttt{inline} parameter (both for the package
+		globally, and individual commands that places commands inline to
+		paragraph text.
 \end{itemize}
 
 \section{Contact info for feedback, discovered issues, and suggestions}
-\todo{Write section: Contact info for feedback, discovered issues, and suggestions}
+If you happen to figure out a solution to something I want to improve on, find
+an issue, or even have a suggestion for this package, please feel free to send
+me an email at \myContactEmail{}.
 
 
 
