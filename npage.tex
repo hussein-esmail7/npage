@@ -19,20 +19,19 @@
 % =========================== Shortcuts ===========================
 
 \documentclass{article}
+\title{\myTitle}
+\author{\myAuthor \\ \texttt{\myContactEmail{}}}
+\date{\myDateUpdated}
 
-\usepackage[nohang]{npage}
 \usepackage{comment}	% Used for the 'comment' environment (multi-line)
-\usepackage{datetime}
-\usepackage{framed}
 \usepackage{tikz}
-\usepackage{graphicx}   % Used for adding images
 % \usepackage{hanging}
+\usepackage[nohang]{npage}
+\usepackage{framed}
 
 \usepackage{hyperref}   % Used for adding PDF metadata
-
-\graphicspath{{./} {src/}}     % Import images in the same folder as this .tex file
-
 \usetikzlibrary{decorations.pathmorphing}
+
 
 \hypersetup{
     colorlinks=true,
@@ -45,17 +44,9 @@
     pdfkeywords={\myKeywords}
 }
 
-\title{\myTitle}
-\author{\myAuthor \\ \texttt{\myContactEmail{}}}
-\newdateformat{specialdate}{\THEYEAR\ \twodigit{\THEMONTH}\ \twodigit{\THEDAY}\ (\shortdayofweekname{\THEDAY}{\THEMONTH}{\THEYEAR})}
-\date{\specialdate\myDateUpdated}
-% \date{\specialdate\today}
-% \date{\myDateUpdated}
-
 \begin{document}        % Official beginning of the document.
 % \pagecolor{black}
 % \color{white}
-\pagenumbering{roman}
 \interfootnotelinepenalty=10000
 \maketitle              % Make title page
 \begin{abstract}
@@ -80,11 +71,7 @@ I've been using 200-page grid paper notebooks from Hilroy. Originally, I had
 just numbered pages and an index. As I used more and more of them, I started
 making little printouts\footnote{\href{https://husseinesmail.xyz/}{Here is a picture of the cover of Notebook \#1.}};
 
-\begin{center}
-	\includegraphics[width=0.6\textwidth]{N01-P000 (cover)}
-\end{center}
-\todo{Hyperlink N01 cover to https://husseinesmail.xyz/notebooks}\footnote{\href{https://husseinesmail.xyz/notebooks}{https://husseinesmail.xyz/notebooks}}
-\todo{Write https://husseinesmail.xyz/notebooks}\footnote{\href{https://husseinesmail.xyz/notebooks}{https://husseinesmail.xyz/notebooks}}
+\todo{Cover of N01 on website, and put URL}
 
 \begin{figure}[h!]
 	\caption{Notebook Cover Label}
@@ -201,7 +188,6 @@ page at the top so I know that there's now a more up to date one, like so:
 	\end{tikzpicture}
 \end{figure}
 
-\todo{Write out remainder of notebook system}
 
 \section{Usage}
 
